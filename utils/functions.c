@@ -9,7 +9,7 @@ int clasificarTipoNumero(char *string)
 
 void clasificarNumeros(char *string)
 {
-    char **numeros = separarString(string, '&'); // 548&0439&0x589&0x0
+    char **numeros = separarString(string, '&'); 
     for (int i = 0; numeros[i] != NULL; i++)
     {
         int resultado = clasificarTipoNumero(numeros[i]);
@@ -29,7 +29,9 @@ void clasificarNumeros(char *string)
             printf("Error al parsear el numero %s\n", numeros[i]);
             break;
         }
+        free(numeros[i]);
     }
+    free(numeros);
 }
 
 int evaluarExpresion(char *string)

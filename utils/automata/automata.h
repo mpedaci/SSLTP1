@@ -13,6 +13,7 @@ typedef struct Automata
 	int **matriz;
 	Array estadosFinales;
 	Array diccionario;
+	int cantidadDeEstados;
 	int estadoInicial;
 } Automata;
 
@@ -36,3 +37,6 @@ int parsearString(Automata automata, char *string);
  * se va a transicionar.
  */
 int parsearStringConSideEffect(Automata automata, char *string, void (*sideEffect)(char, void *), void *buffer);
+
+
+void destruirAutomata(Automata automata);

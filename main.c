@@ -46,11 +46,13 @@ int main(int argc, char **argv)
         case 1:
             parametro = obtenerParametros();
             clasificarNumeros(parametro);
+            free(parametro);
             break;
         case 2:
             parametro = obtenerParametros();
             int result = evaluarExpresion(parametro);
             printf("%s = %d\n", parametro, result);
+            free(parametro);
             break;
         case 3:
             correrTest();

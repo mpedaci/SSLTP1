@@ -7,6 +7,11 @@
 
 #include "utils.h"
 
+#define DECIMAL 5
+#define OCTAL 3
+#define HEXA1 6
+#define HEXA2 4
+
 char **separarString(char *string, char caracter)
 {
 	int counter = 1;
@@ -94,7 +99,6 @@ Automata construirAutomataParserTipoDeNumero()
 						 {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}};
 	char *diccionario = "0123456789ABCDEFxX";
 	int estadosFinales[] = {3, 4, 5, 6};
-	// 5 decimal, 3 octal , 4 y 6 hexa
 	return construirAutomata(7, 18, matriz, 0, 4, estadosFinales, diccionario);
 }
 
@@ -128,25 +132,36 @@ int getNumero(char *expresion)
 	int resultado = parsearString(automataParser, expresion);
 	int *buffer = malloc(sizeof(int));
 	*buffer = 0;
+	char* expresionBase = NULL;
 
 	switch (resultado)
 	{
-	case 5:
+	case DECIMAL:
 		parsearStringConSideEffect(construirAutomataParserDec(), expresion, appendDecimal, buffer);
 		break;
-	case 3:
-		parsearStringConSideEffect(construirAutomataParserDec(), quitarMarcadorOctal(expresion), appendOctal, buffer);
+	case OCTAL:
+		expresionBase = quitarMarcadorOctal(expresion);
+		parsearStringConSideEffect(construirAutomataParserDec(), expresionBase, appendOctal, buffer);
+		free(expresionBase);
 		break;
-	case 6:
-		parsearStringConSideEffect(construirAutomataParserHex(), quitarMarcadorHexa(expresion), appendHex, buffer);
+	case HEXA1:
+		expresionBase = quitarMarcadorHexa(expresion);
+		parsearStringConSideEffect(construirAutomataParserHex(),  expresionBase, appendHex, buffer);
+		free(expresionBase);
 		break;
-	case 4:
-		parsearStringConSideEffect(construirAutomataParserHex(), quitarMarcadorHexa(expresion), appendHex, buffer);
+	case HEXA2:
+		expresionBase = quitarMarcadorHexa(expresion);
+		parsearStringConSideEffect(construirAutomataParserHex(),  expresionBase, appendHex, buffer);
+		free(expresionBase);
 		break;
 	case -1:
 		return -1;
 		break;
 	}
 
-	return *buffer;
+	int numero = *buffer;
+	free(buffer);
+	destruirAutomata(automataParser);
+
+	return numero;
 }

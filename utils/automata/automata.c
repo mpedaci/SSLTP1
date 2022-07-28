@@ -6,7 +6,7 @@ Automata construirAutomata(int height, int width, int matrizDeTransiciones[heigh
 
 	automata.estadoInicial = estadoInicial;
 	automata.matriz = malloc(sizeof(int *) * height);
-
+	automata.cantidadDeEstados = height;
 	for (int i = 0; i < height; i++)
 	{
 		automata.matriz[i] = malloc(sizeof(int) * width);
@@ -79,4 +79,17 @@ int parsearStringConSideEffect(Automata automata, char *string, void (*sideEffec
 int parsearString(Automata automata, char *string)
 {
 	return parsearStringConSideEffect(automata, string, id, NULL);
+}
+
+void destruirArray(Array arr){
+	free(arr.vals);
+}
+
+void destruirAutomata(Automata automata){
+	destruirArray(automata.estadosFinales);
+	destruirArray(automata.diccionario);
+	for(int i = 0; i < automata.cantidadDeEstados;i++){
+		free(automata.matriz[i]);
+	}
+	free(automata.matriz);
 }

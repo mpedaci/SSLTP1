@@ -5,6 +5,8 @@ int ramaEvalFunction(Rama *ramaDer, Rama *ramaIzq, int operador)
 	int primeraExpresion = ramaIzq->evalFunction(ramaIzq->derecha, ramaIzq->izquierda, ramaIzq->value);
 	int segundaExpresion = ramaDer->evalFunction(ramaDer->derecha, ramaDer->izquierda, ramaDer->value);
 	char operadorPosta = (char)operador;
+	free(ramaDer);
+	free(ramaIzq);
 
 	switch (operadorPosta)
 	{
@@ -42,7 +44,7 @@ char *construirSubstring(int first, int last, char *expresion)
 		substring[i - first] = expresion[i];
 	}
 
-	substring[cnt + 1] = '\0';
+	substring[cnt] = '\0';
 
 	return substring;
 }
@@ -54,7 +56,11 @@ int evaluarArbol(Rama *ramaBase)
 		printf("Error, arbol es nulo!\n");
 		return 0;
 	}
-	return ramaBase->evalFunction(ramaBase->derecha, ramaBase->izquierda, ramaBase->value);
+	Rama* ramaDerecha = ramaBase->derecha;
+	Rama* ramaIzquierda = ramaBase->izquierda;
+	int valor = ramaBase->value;
+	free(ramaBase);
+	return ramaBase->evalFunction(ramaDerecha, ramaIzquierda, valor);
 }
 
 Rama *ramaVerificada(Rama *rama)
@@ -68,6 +74,17 @@ Rama *ramaVerificada(Rama *rama)
 	return rama;
 }
 
+void armarPartesDeRama(int index,Rama* rama,char* expresion){
+	char* primeraExpresion = construirSubstring(0, index, expresion);
+	char* segundaExpresion = construirSubstring(index + 1, strlen(expresion), expresion);
+	rama->izquierda = construirRama(primeraExpresion);
+	rama->derecha = construirRama(segundaExpresion);
+	rama->evalFunction = ramaEvalFunction;
+	rama->value = expresion[index];
+	free(primeraExpresion);
+	free(segundaExpresion);
+}
+
 Rama *construirRama(char *expresion)
 {
 	Rama *rama = malloc(sizeof(Rama));
@@ -79,10 +96,7 @@ Rama *construirRama(char *expresion)
 	{
 		if (expresion[i] == '+' || expresion[i] == '-')
 		{
-			rama->izquierda = construirRama(construirSubstring(0, i, expresion));
-			rama->derecha = construirRama(construirSubstring(i + 1, strlen(expresion), expresion));
-			rama->evalFunction = ramaEvalFunction;
-			rama->value = expresion[i];
+			armarPartesDeRama(i,rama,expresion);
 			return ramaVerificada(rama);
 		}
 	}
@@ -91,10 +105,7 @@ Rama *construirRama(char *expresion)
 	{
 		if (expresion[j] == '*')
 		{
-			rama->izquierda = construirRama(construirSubstring(0, j, expresion));
-			rama->derecha = construirRama(construirSubstring(j + 1, strlen(expresion), expresion));
-			rama->evalFunction = ramaEvalFunction;
-			rama->value = expresion[j];
+			armarPartesDeRama(j,rama,expresion);
 			return ramaVerificada(rama);
 		}
 	}
