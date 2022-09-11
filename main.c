@@ -53,7 +53,7 @@ int submenu()
     printf("1. Ingresar por archivo\n");
     printf("2. Ingresar por consola\n");
     printf("\n\n");
-     printf("Ingrese una opcion: ");
+    printf("Ingrese una opcion: ");
     int opcion;
     scanf("%d", &opcion);
     if (opcion != 1 && opcion != 2)
