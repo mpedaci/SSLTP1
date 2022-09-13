@@ -71,7 +71,7 @@ void correrTest()
     describe("0439 debe ser Error", 1);
     shouldBe(clasificarTipoNumero("0439"), ERROR);
     describe("-48 debe ser un numero decimal",1);
-    shouldBe(clasificarTipoNumero("-48"),DECIMAL);
+    shouldBe(clasificarTipoNumero("-48"), DECIMAL);
 
     jumpLine();
 
