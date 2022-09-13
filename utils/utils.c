@@ -1,10 +1,3 @@
-/*
- * aux.c
- *
- *  Created on: Jul 19, 2022
- *      Author: utnso
- */
-
 #include "utils.h"
 
 #define DECIMAL 5

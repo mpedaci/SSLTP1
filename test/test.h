@@ -11,7 +11,9 @@ void green();
 void white();
 /* void shouldBe(char *a, char *b); */
 void shouldBe(int a, int b);
-
 void correrTest();
+void jumpLine();
+void clearConsole();
+void wait();
 
 #endif /* TEST_H_ */

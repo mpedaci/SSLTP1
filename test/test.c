@@ -32,6 +32,10 @@ void clearConsole(){
     system("cls");
 }
 
+void wait(){
+    system("pause");
+}
+
 /* LOGICAL TEST FUNCTION */
 
 void shouldBe(int a, int b)
@@ -98,7 +102,6 @@ void correrTest()
     shouldBe(evaluarExpresion("(1+1)&(2+3)"), ERROR);
 
     jumpLine();
-    
-    system("pause");
+    wait();
     clearConsole();
 }
