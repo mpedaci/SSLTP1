@@ -1,6 +1,7 @@
 #include "utils.h"
 
 #define DECIMAL 5
+#define CERO 1
 #define OCTAL 3
 #define HEXA1 6
 #define HEXA2 4
@@ -92,8 +93,8 @@ Automata construirAutomataParserTipoDeNumero()
 						 {-1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
 						 {-1,-1,5,5,5,5,5,5,5,5,5,-1,-1,-1,-1,-1,-1,-1,-1}};
 	char *diccionario = "-0123456789ABCDEFxX";
-	int estadosFinales[] = {3, 4, 5, 6};
-	return construirAutomata(8, 19, matriz, 0, 4, estadosFinales, diccionario);
+	int estadosFinales[] = {3,1, 4, 5, 6};
+	return construirAutomata(8, 19, matriz, 0, 5, estadosFinales, diccionario);
 }
 
 Automata construirAutomataParserDec()
@@ -148,6 +149,8 @@ int getNumero(char *expresion)
 		parsearStringConSideEffect(construirAutomataParserHex(),  expresionBase, appendHex, buffer);
 		free(expresionBase);
 		break;
+	case CERO:
+		*buffer = 0;
 	case -1:
 		return -1;
 		break;

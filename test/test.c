@@ -73,6 +73,7 @@ void correrTest()
     describe("-48 debe ser un numero decimal",1);
     shouldBe(clasificarTipoNumero("-48"), DECIMAL);
 
+
     jumpLine();
 
     describe("Test Clasificador de Palabras Multiples", 0);
@@ -91,6 +92,8 @@ void correrTest()
 
     jumpLine();
 
+    describe("0+1 debe ser 1",1);
+    shouldBe(evaluarExpresion("0+1"),1);
     describe("Test Operaciones", 0);
     describe("1+1 debe ser 2", 1);
     shouldBe(evaluarExpresion("1+1"), 2);
@@ -102,6 +105,7 @@ void correrTest()
     shouldBe(evaluarExpresion("3+4*7+3-5"), 29);
     describe("(1+1)&(2+3) debe ser Error", 1);
     shouldBe(evaluarExpresion("(1+1)&(2+3)"), ERROR);
+
 
     jumpLine();
     wait();
