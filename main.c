@@ -45,8 +45,8 @@ char *obtenerParametros(int origen)
 int menu()
 {
     printf("\n\n");
-    printf("1. Automata\n");
-    printf("2. Nodos\n");
+    printf("1. Reconocer cadena\n");
+    printf("2. Calcular cadena\n");
     printf("3. Correr Tests\n");
     printf("4. Salir\n");
     printf("\n\n");

@@ -92,8 +92,6 @@ void correrTest()
 
     jumpLine();
 
-    describe("0+1 debe ser 1",1);
-    shouldBe(evaluarExpresion("0+1"),1);
     describe("Test Operaciones", 0);
     describe("1+1 debe ser 2", 1);
     shouldBe(evaluarExpresion("1+1"), 2);
